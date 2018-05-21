@@ -22,14 +22,5 @@ import DrawerMenu from 'rc-drawer-menu';
 import SiderMenu from './SiderMenu';
 
 export default props => (
-  <DrawerMenu
-    parent={null}
-    level={null}
-    iconChild={null}
-    open={!props.collapsed}
-    onMaskClick={() => { props.onCollapse(true); }}
-    width="256px"
-  >
-    <SiderMenu {...props} collapsed={false} />
-  </DrawerMenu>
+  <SiderMenu {...props} />
 );
