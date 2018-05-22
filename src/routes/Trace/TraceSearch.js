@@ -99,6 +99,20 @@ export default class Trace extends PureComponent {
       this.fetchData({ ...condition, queryDuration: duration.input });
     });
   }
+  handleRefresh = () => {
+    const { dispatch } = this.props;
+    const duration = this.getDefaultDuration();
+    dispatch({
+      type: 'trace/saveVariables',
+      payload: {
+        values: {
+          duration,
+          paging: initPaging,
+        },
+      },
+    });
+    this.fetchData({ queryDuration: duration.input });
+  }
   fetchData = (queryCondition, paging = initPaging) => {
     this.props.dispatch({
       type: 'trace/fetchData',
@@ -262,9 +276,18 @@ export default class Trace extends PureComponent {
             </FormItem>
           </Col>
         </Row>
-        <FormItem>
-          <Button type="primary" htmlType="submit">Search</Button>
-        </FormItem>
+        <Row>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <FormItem>
+              <Button type="primary" htmlType="submit">Search</Button>
+            </FormItem>
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+            <FormItem>
+              <Button type="primary" htmlType="button" onClick={this.handleRefresh}>Latest 15 Min</Button>
+            </FormItem>
+          </Col>
+        </Row>
       </Form>
     );
   }
