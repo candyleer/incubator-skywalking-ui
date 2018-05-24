@@ -102,16 +102,18 @@ export default class Trace extends PureComponent {
   handleRefresh = () => {
     const { dispatch } = this.props;
     const duration = this.getDefaultDuration();
+    const condition = { traceState: 'ALL', queryOrder: 'BY_START_TIME' };
     dispatch({
       type: 'trace/saveVariables',
       payload: {
         values: {
+          ...condition,
           duration,
           paging: initPaging,
         },
       },
     });
-    this.fetchData({ queryDuration: duration.input });
+    this.fetchData({ ...condition, queryDuration: duration.input });
   }
   fetchData = (queryCondition, paging = initPaging) => {
     this.props.dispatch({
